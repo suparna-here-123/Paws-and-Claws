@@ -10,19 +10,21 @@ const port = 3001;
 app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.json());
 
-// Connect to MongoDB
+// Connect to MongoDB database
 mongoose.connect('mongodb://127.0.0.1:27017/pet-vet-db');
 
 
 // Define a Mongoose schema
 // Schema is a blueprint of structure of the data you are going to store
+
+// ORDER AND NAMING OF THE PROPERTIES MUST BE SAME AS THAT IN YOUR REACT.JS FILE!!!!!!!!
 const patientDetails = new mongoose.Schema({
-  petName: String,
-  species: String,
-  breed: String,
-  age: String,
-  parentName: String,
-  parentPh: String,
+  petName : String,
+  petBreed : String,
+  petSpecies : String,
+  petAge : String,
+  parentName : String,
+  parentPh : String
 });
 
 const apptForm = new mongoose.Schema({

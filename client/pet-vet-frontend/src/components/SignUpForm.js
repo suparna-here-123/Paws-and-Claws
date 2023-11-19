@@ -1,62 +1,171 @@
-import { useState } from "react";
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import { useState } from 'react';
 
-export default function SignUpForm(){
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
-    const [user, setUser] = useState({
-        petName : "",
-        species : "",
-        breed : "",
-        age : "",
-        parentName : "",
-        parentPh : ""
-    })
+// TODO remove, this demo shouldn't need to reset the theme.
 
-    async function postUser(event) {
-        event.preventDefault();
-        try {
-        const response = await axios.post("http://localhost:3001/api/register", user);
-        console.log(response.data); // Log the response for debugging
-        setUser({
-            petName : "",
-            species : "",
-            breed : "",
-            age : "",
-            parentName : "",
-            parentPh : ""
-        })
+const defaultTheme = createTheme();
 
+export default function SignUpForm() {
 
-        } catch (error) {
-        console.error(error);
-        }
+  const [user, setUser] = useState({
+    petName : "",
+    petBreed : "",
+    petSpecies : "",
+    petAge : "",
+    parentName : "",
+    parentPh : ""
+  })
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    try {
+    const response = await axios.post("http://localhost:3001/api/register", user);
+    console.log(response.data); // Log the response for debugging
+    alert("Registered successfully!");
+    
+    setUser({
+      petName : "",
+      petBreed : "",
+      petSpecies : "",
+      petAge : "",
+      parentName : "",
+      parentPh : ""
+    })  
+
+    } catch (error) {
+    console.error(error);
     }
-  
+}
 
 
-    return(
-        <div>
-            <form onSubmit={postUser}>
-                <input type='text' id='field-1' value={user.petName} onChange={event => setUser({...user, petName : event.target.value})} required/>
-                <label htmlFor='field-1'>Pet Name</label><br/>
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Grid container component="main" sx={{ height: '100vh' }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: '#2E77D1' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Register your pet!
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                fullWidth
+                id="petName"
+                label="Pet Name"
+                onChange={event=>setUser(prev=>({...prev, petName:event.target.value}))}
+                autoFocus
+                required
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Pet Breed"
+                type="text"
+                id="petBreed"
+                onChange={event=>setUser(prev=>({...prev, petBreed:event.target.value}))}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Pet Species"
+                type="text"
+                id="petSpecies"
+                onChange={event=>setUser(prev=>({...prev, petSpecies:event.target.value}))}
+              />  
 
-                <input type='text' id='field-2' value={user.species} onChange={event=> setUser({...user, species : event.target.value})}required/>
-                <label htmlFor='field-2'>Pet Species</label><br/>
-
-                <input type='text' id='field-3' value={user.breed} onChange={event=>setUser({...user, breed : event.target.value})} required/>
-                <label htmlFor='field-3'>Pet Breed</label><br/>
-
-                <input type='text' id='field-4' value={user.age} onChange={event => setUser({...user, age : event.target.value})}required/>
-                <label htmlFor='field-4'>Pet Age</label><br/>
-
-                <input type='text' id='field-5' value={user.parentName} onChange={event=>setUser({...user, parentName : event.target.value})}required/>
-                <label htmlFor='field-5'>Parent Name</label><br/>
-
-                <input type='tel' id='field-6' size='10' value={user.parentPh} onChange={event => setUser({...user, parentPh : event.target.value})}required/>
-                <label htmlFor='field-6'>Parent Contact</label><br/>
-
-                <input type='submit' value='Register'/>
-            </form>
-        </div>
-    )
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Pet Age"
+                type="text"
+                id="petAge"
+                onChange={event=>setUser(prev=>({...prev, petAge:event.target.value}))}
+              />   
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Parent Name"
+                type="text"
+                id="parentName"
+                onChange={event=>setUser(prev=>({...prev, parentName:event.target.value}))}
+              />      
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Parent Contact"
+                type="text"
+                id="parentPh"
+                size='10'
+                onChange={event=>setUser(prev=>({...prev, parentPh:event.target.value}))}
+              />               
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Register
+              </Button>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
 }
