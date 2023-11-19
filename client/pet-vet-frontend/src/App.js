@@ -6,6 +6,7 @@ import SignUpForm from './components/SignUpForm';
 import UserHomePage from './components/UserHomePage';
 import ApptForm from './components/ApptForm';
 import VetHomePage from './components/VetHomePage';
+import CreateLogin from './components/CreateLogin';
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path='/user-home' element={<UserHomePage/>}/>  
         <Route path='/appt-form' element={<ApptForm/>}/>  
         <Route path='/vet-home' element={<VetHomePage/>}/>  
+        <Route path='/create-login' element={<CreateLogin/>}/>
 
 
       </Routes>
