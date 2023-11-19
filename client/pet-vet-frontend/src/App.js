@@ -5,6 +5,7 @@ import HelloUser from './components/HelloUser';
 import SignUpForm from './components/SignUpForm';
 import UserHomePage from './components/UserHomePage';
 import ApptForm from './components/ApptForm';
+import VetHomePage from './components/VetHomePage';
 import './App.css';
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
         <Route path='/sign-up-form' element={<SignUpForm/>}/>   
         <Route path='/user-home' element={<UserHomePage/>}/>  
         <Route path='/appt-form' element={<ApptForm/>}/>  
+        <Route path='/vet-home' element={<VetHomePage/>}/>  
+
 
       </Routes>
     </BrowserRouter>
