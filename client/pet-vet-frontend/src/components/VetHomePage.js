@@ -80,10 +80,16 @@ export default function VetHomePage() {
 
             <Typography component="h1" variant="h5">
               Appointments Today
-            </Typography>
+            </Typography><br/><br/>
 
             {patients.length === 0 ? <p>No appointments today</p> : 
-             patients.map((patient)=><PatientCard date={patient.date} time={patient.time} reason={patient.reason}/>)}
+             patients.map((patient)=><PatientCard 
+             key={patient._id}
+             date={patient.date}
+             time={patient.time}
+             reason={patient.reason}
+             id={patient._id}/>)}
+      
 
           </Box>
         </Grid>
