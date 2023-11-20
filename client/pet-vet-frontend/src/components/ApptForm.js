@@ -31,6 +31,12 @@ export default function ApptForm() {
     try{
       const response = await axios.post("http://localhost:3001/api/postAppt", apptDetails)
       console.log(response.data);
+      alert("Appointment Booked!");
+      setApptDetails({
+        date : "",
+        time : "",
+        reason : ""
+      })
     }
     catch(error){
       console.error(error);

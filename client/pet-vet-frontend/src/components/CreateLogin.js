@@ -11,7 +11,8 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import angryCatImage from '../assets/angryCat.jpg';
+import { useNavigate } from 'react-router-dom';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -24,6 +25,7 @@ export default function CreateLogin() {
         password : ""
     })
 
+    const navigate = useNavigate();
 
     async function handleSubmit(event){
         event.preventDefault();
@@ -43,6 +45,7 @@ export default function CreateLogin() {
                     password : ""
                 })
                 alert("User registered successfully!");
+                navigate('/login-form');
             }
         }catch(error)
         {
@@ -60,7 +63,7 @@ export default function CreateLogin() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: `url(${angryCatImage})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],

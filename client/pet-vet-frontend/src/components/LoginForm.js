@@ -3,41 +3,45 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import happyCatImage from '../assets/happyCat.jpg';
+import { useState } from 'react';
+import axios from 'axios';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
-  const handleSubmit = (event) => {
+export default function LoginForm() {
+  const [currUser, setCurrUser] = useState({
+    uName : "",
+    pwd : ""
+  })
+
+  async function handleSubmit (event) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    try{
+      const response = await axios.get(`http://localhost:3001/api/verifyUserLogin/${currUser.uName}/${currUser.pwd}`)
+
+      if (response.data.length === 1){
+        alert("Login verified!");
+      }
+      else{
+        alert("User not found :(");
+      }
+    }catch(error){
+      console.error(error);
+    }
+
+
+
   };
 
   return (
@@ -50,7 +54,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: `url(${happyCatImage})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -79,21 +83,17 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                label="Email Address" 
+                onChange={event => setCurrUser((prev)=>({...prev, uName : event.target.value}))}
                 autoFocus
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
                 label="Password"
                 type="password"
-                id="password"
-                autoComplete="current-password"
+                onChange={event => setCurrUser((prev)=>({...prev, pwd : event.target.value}))}
               />
               <Button
                 type="submit"
