@@ -10,11 +10,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import happyCatImage from '../assets/happyCat.jpg';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from './ContextAndProvider';
 import axios from 'axios';
 
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -24,14 +24,24 @@ export default function LoginForm() {
     pwd : ""
   })
 
+  // the variables being extracted must have same name as what was provided in the ContextAndProvider.js file!!!!!!!!!!!!!!
+  const { user, setUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
   async function handleSubmit (event) {
     event.preventDefault();
 
     try{
       const response = await axios.get(`http://localhost:3001/api/verifyUserLogin/${currUser.uName}/${currUser.pwd}`)
+      console.log("Response data : ", response.data);
 
       if (response.data.length === 1){
         alert("Login verified!");
+        setUser(currUser.uName);
+        navigate('/user-home');
+        
+
       }
       else{
         alert("User not found :(");

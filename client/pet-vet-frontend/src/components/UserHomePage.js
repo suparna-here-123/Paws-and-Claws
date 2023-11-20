@@ -1,6 +1,10 @@
+import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom"
+import { UserContext } from './ContextAndProvider';
 
 export default function UserHomePage(){
+    const { user, setUser } = useContext(UserContext);
+
     const navigate = useNavigate();
     
     function gotoAppt(){
@@ -9,6 +13,8 @@ export default function UserHomePage(){
 
     return(
         <div>
+            <p>User logged in is { user }</p>
+
             <p>Book an appointment</p>
             <button onClick={gotoAppt}>Book</button>
 
