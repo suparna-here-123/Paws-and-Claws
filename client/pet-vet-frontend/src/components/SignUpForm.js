@@ -3,7 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -11,28 +10,19 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import { useState } from 'react';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from './ContextAndProvider';
 
 const defaultTheme = createTheme();
 
 export default function SignUpForm() {
+  const navigate = useNavigate();
 
-  const [user, setUser] = useState({
+  const {user, setUser} = useContext(UserContext);
+
+  const [newUser, setNewUser] = useState({
+    username : user,
     petName : "",
     petBreed : "",
     petSpecies : "",
@@ -41,14 +31,17 @@ export default function SignUpForm() {
     parentPh : ""
   })
 
+
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-    const response = await axios.post("http://localhost:3001/api/register", user);
+
+    const response = await axios.post("http://localhost:3001/api/register", newUser);
     console.log(response.data); // Log the response for debugging
     alert("Registered successfully!");
     
-    setUser({
+    setNewUser({
+      username : user,
       petName : "",
       petBreed : "",
       petSpecies : "",
@@ -56,6 +49,8 @@ export default function SignUpForm() {
       parentName : "",
       parentPh : ""
     })  
+
+    navigate('/user-home');
 
     } catch (error) {
     console.error(error);
@@ -103,7 +98,7 @@ export default function SignUpForm() {
                 fullWidth
                 id="petName"
                 label="Pet Name"
-                onChange={event=>setUser(prev=>({...prev, petName:event.target.value}))}
+                onChange={event=>setNewUser(prev=>({...prev, petName:event.target.value}))}
                 autoFocus
                 required
               />
@@ -114,7 +109,7 @@ export default function SignUpForm() {
                 label="Pet Breed"
                 type="text"
                 id="petBreed"
-                onChange={event=>setUser(prev=>({...prev, petBreed:event.target.value}))}
+                onChange={event=>setNewUser(prev=>({...prev, petBreed:event.target.value}))}
               />
               <TextField
                 margin="normal"
@@ -123,7 +118,7 @@ export default function SignUpForm() {
                 label="Pet Species"
                 type="text"
                 id="petSpecies"
-                onChange={event=>setUser(prev=>({...prev, petSpecies:event.target.value}))}
+                onChange={event=>setNewUser(prev=>({...prev, petSpecies:event.target.value}))}
               />  
 
               <TextField
@@ -133,7 +128,7 @@ export default function SignUpForm() {
                 label="Pet Age"
                 type="text"
                 id="petAge"
-                onChange={event=>setUser(prev=>({...prev, petAge:event.target.value}))}
+                onChange={event=>setNewUser(prev=>({...prev, petAge:event.target.value}))}
               />   
               <TextField
                 margin="normal"
@@ -142,7 +137,7 @@ export default function SignUpForm() {
                 label="Parent Name"
                 type="text"
                 id="parentName"
-                onChange={event=>setUser(prev=>({...prev, parentName:event.target.value}))}
+                onChange={event=>setNewUser(prev=>({...prev, parentName:event.target.value}))}
               />      
               <TextField
                 margin="normal"
@@ -151,8 +146,9 @@ export default function SignUpForm() {
                 label="Parent Contact"
                 type="text"
                 id="parentPh"
-                size='10'
-                onChange={event=>setUser(prev=>({...prev, parentPh:event.target.value}))}
+                min='10'
+                max='10'
+                onChange={event=>setNewUser(prev=>({...prev, parentPh:event.target.value}))}
               />               
               <Button
                 type="submit"

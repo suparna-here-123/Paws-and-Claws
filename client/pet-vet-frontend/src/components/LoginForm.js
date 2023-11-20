@@ -37,9 +37,8 @@ export default function LoginForm() {
       console.log("Response data : ", response.data);
 
       if (response.data.length === 1){
-        alert("Login verified!");
         setUser(currUser.uName);
-        navigate('/user-home');
+        navigate('/sign-up-form');
         
 
       }

@@ -45,6 +45,8 @@ export default function CreateLogin() {
                     password : ""
                 })
                 alert("User registered successfully!");
+
+                // navigates to the login page
                 navigate('/login-form');
             }
         }catch(error)
