@@ -177,6 +177,33 @@ app.get('/api/verifyUserLogin/:uName/:pwd', async(req, res)=>{
 
 })
 
+app.get('/api/verifyDocLogin/:uName/:pwd', async(req, res)=>{
+  let docFound;
+
+  try {
+    const { uName, pwd } = req.params;
+
+    // connecting to the db
+    const client = new MongoClient('mongodb://127.0.0.1:27017')
+
+    await client.connect();
+
+    const dbObj = client.db('pet-vet-db');
+    const docsCollection = dbObj.collection('doctors')
+
+    docFound = await docsCollection.find({docUsername : uName, docPassword: pwd}).toArray();
+
+  }catch(error){
+    console.log(error);
+  }
+  res.json(docFound);
+
+})
+
+
+
+
+
 
 //Defining an endpoint for when the client asks for patient details (EDIT PROFILE)
 app.get('/api/getProfile/:uName', async(req, res) => {

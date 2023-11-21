@@ -17,8 +17,12 @@ export default function HelloUser() {
 
     const navigate = useNavigate()
 
-    function gotologin(){
+    function gotoUserlogin(){
       navigate('/login-form');
+    }
+
+    function gotoVetlogin(){
+      navigate('/login-form-doc');
     }
 
     function gotoSignUpForm(){
@@ -57,11 +61,11 @@ export default function HelloUser() {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Woof!
+                <strong><i>Paws & Claws</i></strong><br/>
               </Typography>
   
               <Button
-                onClick={gotologin}
+                onClick={gotoVetlogin}
                 variant="contained"
                 sx={{
                   mt: 3,
@@ -76,9 +80,30 @@ export default function HelloUser() {
                   cursor: 'pointer',
                 }}
               >
-                Vet & User Login
+                Vet Login
               </Button>
   
+
+              <Button
+                onClick={gotoUserlogin}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  width: '100%',
+                  backgroundColor: 'black',
+                  color: 'white',
+                  padding: '15px',
+                  fontSize: '1.2rem',
+                  borderRadius: '5px',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                User Login
+              </Button>
+
+
               <Button
                 onClick={gotoSignUpForm}
                 variant="contained"
