@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from './ContextAndProvider';
+import eagleImage from '../assets/eagle.jpeg'
 
 const defaultTheme = createTheme();
 
@@ -108,7 +109,7 @@ export default function SignUpForm() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: `url(${eagleImage})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
