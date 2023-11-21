@@ -50,7 +50,7 @@ export default function SignUpForm() {
       parentPh : ""
     })  
 
-    navigate('/user-home');
+    navigate('/login-form');
 
     } catch (error) {
     console.error(error);

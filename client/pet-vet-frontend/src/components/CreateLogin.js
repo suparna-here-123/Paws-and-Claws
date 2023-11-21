@@ -9,10 +9,11 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import angryCatImage from '../assets/angryCat.jpg';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from './ContextAndProvider';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -24,6 +25,8 @@ export default function CreateLogin() {
         username : "",
         password : ""
     })
+
+    const {user, setUser} = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -45,9 +48,10 @@ export default function CreateLogin() {
                     password : ""
                 })
                 alert("User registered successfully!");
-
+                
+                setUser(newUser.username);
                 // navigates to the login page
-                navigate('/login-form');
+                navigate('/sign-up-form');
             }
         }catch(error)
         {

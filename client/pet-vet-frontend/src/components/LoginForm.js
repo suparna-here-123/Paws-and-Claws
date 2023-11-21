@@ -34,11 +34,11 @@ export default function LoginForm() {
 
     try{
       const response = await axios.get(`http://localhost:3001/api/verifyUserLogin/${currUser.uName}/${currUser.pwd}`)
-      console.log("Response data : ", response.data);
 
       if (response.data.length === 1){
         setUser(currUser.uName);
-        navigate('/sign-up-form');
+        setUser(currUser.uName);
+        navigate('/user-home');
         
 
       }

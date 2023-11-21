@@ -19,8 +19,8 @@ export default function UserHomePage() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  function gotoSignUpForm() {
-    navigate('/sign-up-form');
+  function gotoEditProfile() {
+    navigate('/edit-profile');
   }
 
   function gotoAppt() {
@@ -63,7 +63,7 @@ export default function UserHomePage() {
             </Typography>
 
             <Button
-              onClick={gotoSignUpForm}
+              onClick={gotoEditProfile}
               variant="contained"
               sx={{
                 mt: 3,

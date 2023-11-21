@@ -7,6 +7,7 @@ import UserHomePage from './components/UserHomePage';
 import ApptForm from './components/ApptForm';
 import VetHomePage from './components/VetHomePage';
 import CreateLogin from './components/CreateLogin';
+import EditProfile from './components/EditProfile';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path='/appt-form' element={<ApptForm/>}/>  
         <Route path='/vet-home' element={<VetHomePage/>}/>  
         <Route path='/create-login' element={<CreateLogin/>}/>
+        <Route path='/edit-profile' element={<EditProfile/>}/>
 
 
       </Routes>
